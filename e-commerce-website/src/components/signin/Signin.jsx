@@ -1,13 +1,41 @@
 import React, { useState } from 'react'
 import './signin.styles.css'
+import { auth } from '../../config/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useGlobalContext } from '../../context/appContext';
 
 const Signin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const {showAlert} = useGlobalContext();
+
+    // validateLogin
+    const validateLogin = (email,password)=>{
+        if (!email && !password){
+            showAlert('error','All fields are required');
+            return false
+        }
+        else {
+            return true
+        }
+    }
+
+    // Login user
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email)
-        console.log(password)
+        if(validateLogin(email,password)){
+            showAlert('success','Checking your info')
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCred)=>{
+                console.log(userCred.user)
+                showAlert('success','Login Successfully');
+                setEmail('')
+                setPassword('')
+            }).catch((error)=>{
+                showAlert('error',error.message);
+            })
+        }
     }
     return (
         <div className="sign-in container py-2">
@@ -29,7 +57,7 @@ const Signin = () => {
                 <div className="row mb-3">
                     <label htmlFor="inputPassword3" className="col-sm-2 col-form-label"></label>
                     <div className="col-sm-10">
-                        <button type="submit" className="btn btn-primary">Sign in</button>
+                        <button type="submit" className="btn btn-primary">Login</button>
                     </div>
                 </div>
             </form>

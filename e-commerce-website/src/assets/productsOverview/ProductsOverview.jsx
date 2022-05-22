@@ -3,9 +3,7 @@ import './productsOverview.styles.css'
 
 const ProductsOverview = ({ items }) => {
     const arrangedItems = items.filter((item,index)=> index<3);
-    // console.log(arrangedItems);
-    // console.log(items)
-    console.log(arrangedItems)
+
     return (
         arrangedItems.map((item) => {
             return  (<div className="col py-4" key={item.id}>
