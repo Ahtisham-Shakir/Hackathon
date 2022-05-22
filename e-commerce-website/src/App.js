@@ -8,19 +8,23 @@ import {
 } from "react-router-dom";
 import Home from './pages/home/Home';
 import Shop from './pages/shop/Shop';
+import SigninAndSignup from './pages/signin-and-signup/Signin-and-Signup';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
-   <>
-   <Router>
-     <Navbar/>
+    <>
+      <Router>
+        <Navbar />
 
-     <Routes>
-       <Route path='/' element={<Home/>}/>
-       <Route path='/shop' element={<Shop/>}/>
-     </Routes>
-   </Router>
-   </>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/shop' element={<Shop />} />
+          <Route path='/signin' element={<SigninAndSignup />} />
+        </Routes>
+      </Router>
+      <ToastContainer />
+    </>
   );
 }
 
